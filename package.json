@@ -1,0 +1,12 @@
+{
+  "name": "api_main",
+  "version": "1.0.0",
+  "description": "cs206 g1t1 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
