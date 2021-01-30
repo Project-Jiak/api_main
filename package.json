@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "compress": "zip jiak.zip -r dist .env package.json package-lock.json",
+    "compress": "zip jiak-api.zip -r dist .env package.json package-lock.json",
     "bundle": "npm run build && npm run compress",
     "test": "jest --no-cache --setupFiles dotenv/config",
     "dev": "tsc-watch --onSuccess \"node -r dotenv/config dist/src/index.js\"",
