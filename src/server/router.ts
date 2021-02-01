@@ -6,8 +6,6 @@ import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
 
 class Routes {
-  private baseRouteDocs: any;
-
   private baseRoute: any;
 
   private router: any;
