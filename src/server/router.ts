@@ -83,11 +83,11 @@ class Routes {
 
   private initializeRootRoute() {
     this.router.get('/', (req: any, res: any) => {
-      res.status(200).json({ message: true });
+      res.status(200).json({ message: 'jiak' });
     });
 
     this.router.get(`${this.baseRoute}/`, (req: any, res: any) => {
-      res.status(200).json({ message: true });
+      res.status(200).json({ message: 'jiak-api' });
     });
   }
 

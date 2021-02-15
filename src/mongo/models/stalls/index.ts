@@ -20,66 +20,41 @@ const StallSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  menu: [
+    MenuSchema,
+  ],
   operatinghours: {
-    monday: {
-      open: {
-        type: Number,
+    type: Object,
+    default: {
+      monday: {
+        open: 7,
+        close: 9,
       },
-      close: {
-        type: Number,
+      tuesday: {
+        open: 7,
+        close: 9,
       },
-    },
-    tuesday: {
-      open: {
-        type: Number,
+      wednesday: {
+        open: 7,
+        close: 9,
       },
-      close: {
-        type: Number,
+      thursday: {
+        open: 7,
+        close: 9,
       },
-    },
-    wednesday: {
-      open: {
-        type: Number,
+      friday: {
+        open: 7,
+        close: 9,
       },
-      close: {
-        type: Number,
+      saturday: {
+        open: 7,
+        close: 9,
       },
-    },
-    thursday: {
-      open: {
-        type: Number,
-      },
-      close: {
-        type: Number,
-      },
-    },
-    friday: {
-      open: {
-        type: Number,
-      },
-      close: {
-        type: Number,
+      sunday: {
+        open: 7,
+        close: 9,
       },
     },
-    saturday: {
-      open: {
-        type: Number,
-      },
-      close: {
-        type: Number,
-      },
-    },
-    sunday: {
-      open: {
-        type: Number,
-      },
-      close: {
-        type: Number,
-      },
-    },
-    menu: [
-      MenuSchema,
-    ],
   },
 },
 {
