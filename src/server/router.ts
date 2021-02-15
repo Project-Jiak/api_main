@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
 
 import customerRouter, { customerPassport } from '@server/customer';
+import stallRouter, { stallPassport } from '@server/stall';
 
 import {
   requestErrors,
@@ -97,6 +98,14 @@ class Routes {
       customerPassport.initialize(),
       customerPassport.session(),
       customerRouter,
+    );
+
+    this.router.use(
+      `${this.baseRoute}/stall`,
+      cors(this.stallCors),
+      stallPassport.initialize(),
+      stallPassport.session(),
+      stallRouter,
     );
   }
 
