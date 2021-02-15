@@ -69,6 +69,7 @@
     ]
   },
   "_moduleAliases": {
+    "@interfaces": "dist/src/interfaces",
     "@mongo": "dist/src/mongo",
     "@server": "dist/src/server"
   },

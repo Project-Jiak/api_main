@@ -15,6 +15,7 @@ module.exports = {
     '<rootDir>/dist/',
   ],
   moduleNameMapper: {
+    '@interfaces(.*)': '<rootDir>/src/interfaces/$1',
     '@mongo/(.*)': '<rootDir>/src/mongo/$1',
     '@server/(.*)': '<rootDir>/src/server/$1',
   },

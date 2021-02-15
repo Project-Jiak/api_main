@@ -1,14 +1,25 @@
 import 'express-async-errors';
 
+import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
 
+import customerRouter, { customerPassport } from '@server/customer';
+
+import {
+  requestErrors,
+} from '@interfaces/index';
+
 class Routes {
   private baseRoute: any;
 
   private router: any;
+
+  private customerCors: any;
+
+  private stallCors: any;
 
   constructor() {
     this.baseRoute = '/api/v1';
@@ -16,6 +27,10 @@ class Routes {
 
     this.initializeParser();
     this.initializeRootRoute();
+
+    this.initializeCors();
+    this.initializeApplicationRoute();
+
     this.initializeErrorHandling();
   }
 
@@ -48,6 +63,16 @@ class Routes {
     };
   }
 
+  private initializeCors() {
+    const {
+      CUSTOMER_CORS_WHITELIST,
+      STALL_CORS_WHITELIST,
+    } = process.env;
+
+    this.customerCors = Routes.configCors(CUSTOMER_CORS_WHITELIST ? CUSTOMER_CORS_WHITELIST.split(',') : []);
+    this.stallCors = Routes.configCors(STALL_CORS_WHITELIST ? STALL_CORS_WHITELIST.split(',') : []);
+  }
+
   private initializeParser() {
     this.router.use(cookieParser());
     this.router.use(bodyParser.json());
@@ -65,12 +90,24 @@ class Routes {
     });
   }
 
+  private initializeApplicationRoute() {
+    this.router.use(
+      `${this.baseRoute}/customer`,
+      cors(this.customerCors),
+      customerPassport.initialize(),
+      customerPassport.session(),
+      customerRouter,
+    );
+  }
+
   private initializeErrorHandling() {
     this.router.use((err: any, req: any, res: any, next: any) => {
       if (err.name === 'UnauthorizedError') {
-        res.status(401).json({ error: true });
+        res.status(401).json({ message: 'UnauthorizedError: not loggedin or invalid cookie (make sure to enable cookie)', error: err });
       } else if (err.name === 'UnauthorizedOriginError') {
-        res.status(401).json({ error: true });
+        res.status(401).json({ message: 'Unauthorized Origin', error: err.message });
+      } else if (requestErrors.includes(err.name)) {
+        res.status(err.code).json(err.response());
       } else {
         next(err);
       }

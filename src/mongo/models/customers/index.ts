@@ -6,10 +6,13 @@ const CustomerSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  email: {
+  phone: {
     unique: true,
     type: String,
     required: true,
+  },
+  email: {
+    type: String,
     validate: {
       validator: validator.isEmail,
       message: 'Mongoose: Please enter a valid email',
