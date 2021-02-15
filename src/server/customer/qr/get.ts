@@ -1,4 +1,4 @@
-import { MapDB, TableDB } from '@mongo/models';
+import { MapDB, TableDB, CoordinateDB } from '@mongo/models';
 import { DynamicMap, BadRequestError } from '@interfaces/index';
 
 const get = async (req: any, res: any) => {
@@ -24,12 +24,23 @@ const get = async (req: any, res: any) => {
     throw new BadRequestError('coordinate', 'not found');
   }
 
+  let coordinates;
+  try {
+    coordinates = <DynamicMap> await CoordinateDB.find({ mapId });
+  } catch (err) {
+    throw new BadRequestError('coordinate', err);
+  }
+  if (!coordinates) {
+    throw new BadRequestError('coordinate', 'not found');
+  }
+
   return res.status(200).json({
     hawker: map.name,
     map: map.image,
     tableX: map.coordX,
     tableY: map.coordY,
     number: table.number,
+    hawkers: coordinates,
   });
 };
 
