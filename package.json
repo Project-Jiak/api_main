@@ -1,14 +1,14 @@
 {
   "name": "vitaverify-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "compress": "zip jiak-api.zip -r dist .env package.json package-lock.json",
+    "compress": "zip jiak-api.zip -r dist .env .env.production package.json package-lock.json",
     "bundle": "npm run build && npm run compress",
     "test": "jest --no-cache --setupFiles dotenv/config",
     "dev": "tsc-watch --onSuccess \"node -r dotenv/config dist/src/index.js\"",
-    "start": "node -r dotenv/config dist/src/index.js"
+    "start": "node -r dotenv/config dist/src/index.js dotenv_config_path=.env.production"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

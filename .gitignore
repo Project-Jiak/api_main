@@ -3,7 +3,6 @@ certificates
 dist
 node_modules
 .env*
-*.zip
 
 # Elastic Beanstalk Files
 .ebextensions/*
