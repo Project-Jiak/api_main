@@ -20,5 +20,7 @@ customerRouter.post('/auth/register', require('./authentication/register').defau
 customerRouter.post('/auth/login', require('./authentication/login').default);
 customerRouter.post('/auth/logout', require('./authentication/logout').default);
 
+customerRouter.get('/qr', require('./qr/get').default);
+
 export default customerRouter;
 export { default as customerPassport } from '@server/customer/passport';
