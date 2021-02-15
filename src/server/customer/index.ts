@@ -24,7 +24,9 @@ customerRouter.use('/profile', requireCookie);
 customerRouter.get('/profile', require('./profile/retrieve').default);
 
 customerRouter.get('/qr', require('./qr/get').default);
+
 customerRouter.get('/stall', require('./stall/get').default);
+customerRouter.get('/stalls', require('./stall/retrieve').default);
 
 customerRouter.use('/order', requireCookie);
 customerRouter.get('/order', require('./order/retrieve').default);
