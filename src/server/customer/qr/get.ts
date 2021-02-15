@@ -37,10 +37,10 @@ const get = async (req: any, res: any) => {
   return res.status(200).json({
     hawker: map.name,
     map: map.image,
-    tableX: map.coordX,
-    tableY: map.coordY,
+    tableX: table.coordX,
+    tableY: table.coordY,
     number: table.number,
-    hawkers: coordinates,
+    stalls: coordinates,
   });
 };
 
