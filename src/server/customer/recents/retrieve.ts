@@ -1,6 +1,10 @@
 import { CustomerDB, OrderDB } from '@mongo/models';
 import { DynamicMap, BadRequestError } from '@interfaces/index';
 
+function onlyUnique(value: any, index: any, self: any) {
+  return self.indexOf(value) === index;
+}
+
 const retrieve = async (req: any, res: any) => {
   const { _id, password } = req.user;
 
@@ -24,24 +28,16 @@ const retrieve = async (req: any, res: any) => {
     throw new BadRequestError('customer', 'not authenticated');
   }
 
-  const bundledOrders: any[] = [];
+  const recentHawkers: any[] = [];
 
   orders.forEach((order: any) => {
-    if (!bundledOrders[order.orderId]) bundledOrders[order.orderId] = []
-    bundledOrders[order.orderId].push({
-      uen: order.uen,
-      menuId: order.menuId,
-      customerId: order.customerId,
-      quantity: order.quantity,
-      status: order.status,
-    });
-    bundledOrders[order.orderId].customerId = order.customerId;
-    bundledOrders[order.orderId].quantity = order.quantity;
-    bundledOrders[order.orderId].status = order.status;
+    recentHawkers.push(order.uen);
   });
 
+  const uniqueRecentHawkers = recentHawkers.filter(onlyUnique);
+
   return res.status(200).json(
-    bundledOrders,
+    uniqueRecentHawkers,
   );
 };
 

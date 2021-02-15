@@ -29,6 +29,7 @@ const insert = async (req: any, res: any) => {
   orders.forEach((order: any) => {
     if (!bundledOrders[order.orderId]) bundledOrders[order.orderId] = []
     bundledOrders[order.orderId].push({
+      uen: order.uen,
       menuId: order.menuId,
       customerId: order.customerId,
       quantity: order.quantity,

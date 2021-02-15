@@ -18,6 +18,10 @@ const CustomerSchema = new mongoose.Schema({
       message: 'Mongoose: Please enter a valid email',
     },
   },
+  favourites: {
+    type: Array,
+    default: [],
+  },
   password: {
     type: String,
     required: true,
