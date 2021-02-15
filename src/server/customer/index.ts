@@ -20,7 +20,15 @@ customerRouter.post('/auth/register', require('./authentication/register').defau
 customerRouter.post('/auth/login', require('./authentication/login').default);
 customerRouter.post('/auth/logout', require('./authentication/logout').default);
 
+customerRouter.use('/profile', requireCookie);
+customerRouter.get('/profile', require('./profile/retrieve').default);
+
 customerRouter.get('/qr', require('./qr/get').default);
+customerRouter.get('/stall', require('./stall/get').default);
+
+customerRouter.use('/order', requireCookie);
+customerRouter.get('/order', require('./order/retrieve').default);
+customerRouter.post('/order', require('./order/insert').default);
 
 export default customerRouter;
 export { default as customerPassport } from '@server/customer/passport';

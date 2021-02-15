@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 
 const OrderSchema = new mongoose.Schema({
+  orderId: {
+    type: Number,
+  },
   customerId: {
     type: String,
     required: true,
@@ -16,6 +19,9 @@ const OrderSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
+  },
+  quantity: {
+    type: Number,
   },
 },
 {
