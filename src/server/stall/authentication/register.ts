@@ -6,7 +6,7 @@ import { StallDB } from '@mongo/models';
 import { DynamicMap, BadRequestError } from '@interfaces/index';
 
 const register = async (req: any, res: any) => {
-  const { uen, password } = req.body;
+  const { uen, name, password } = req.body;
 
   let stall;
 
@@ -26,6 +26,7 @@ const register = async (req: any, res: any) => {
   const StallModel = new StallDB({
     date: moment(Date.now()).toDate(),
     uen,
+    name,
     password: hash,
   });
 

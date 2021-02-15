@@ -2,10 +2,14 @@ import mongoose from 'mongoose';
 
 import MenuSchema from './MenuSchema';
 
-const CustomerSchema = new mongoose.Schema({
+const StallSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
+  },
+  name: {
+    type: String,
+    required: true,
   },
   uen: {
     unique: true,
@@ -82,4 +86,4 @@ const CustomerSchema = new mongoose.Schema({
   strict: true,
 });
 
-export default CustomerSchema;
+export default StallSchema;
