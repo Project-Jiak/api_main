@@ -26,8 +26,11 @@ customerRouter.get('/profile', require('./profile/retrieve').default);
 customerRouter.get('/qr', require('./qr/get').default);
 
 customerRouter.get('/stall', require('./stall/get').default);
+customerRouter.get('/dish', require('./stall/getMenu').default);
 
 customerRouter.get('/map', require('./map/retrieve').default);
+customerRouter.get('/hawkercenter/retrieve', require('./map/retrieve').default);
+customerRouter.get('/hawkercenter/get', require('./map/get').default);
 
 customerRouter.use('/order', requireCookie);
 customerRouter.get('/order', require('./order/retrieve').default);
