@@ -1,4 +1,4 @@
-import { CoordinateDB, MapDB, StallDB } from '@mongo/models';
+import { CoordinateDB, MapDB, StallDB, TableDB } from '@mongo/models';
 import { DynamicMap, BadRequestError } from '@interfaces/index';
 
 const retrieve = async (req: any, res: any) => {
@@ -27,6 +27,10 @@ const retrieve = async (req: any, res: any) => {
           stalls.push({
             ...stall.toJSON(),
             password: undefined,
+            startX: lazyToMakeInterface.startX,
+            startY: lazyToMakeInterface.startY,
+            endX: lazyToMakeInterface.endX,
+            endY: lazyToMakeInterface.endY,
           });
         } catch (err) {
           throw new BadRequestError('stall', err);
@@ -35,9 +39,19 @@ const retrieve = async (req: any, res: any) => {
     } catch (err) {
       throw new BadRequestError('stall', err);
     }
+
+    let tables;
+
+    try {
+      tables = await TableDB.find({ mapId: mp._id });
+    } catch (err) {
+      throw new BadRequestError('stall', err);
+    }
+
     mapWithStalls.push({
       ...mp.toJSON(),
       stalls,
+      tables,
     });
   }
 
