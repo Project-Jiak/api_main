@@ -17,7 +17,10 @@ const get = async (req: any, res: any) => {
   // eslint-disable-next-line eqeqeq
   const dish = stall.menu.find((menu: any) => menu._id == menuId);
 
-  return res.status(200).json(dish);
+  return res.status(200).json({
+    ...dish.toJSON(),
+    uen,
+  });
 };
 
 export default get;
