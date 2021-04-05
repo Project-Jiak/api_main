@@ -12,6 +12,7 @@ const MenuSchema = new mongoose.Schema({
   },
   available: {
     type: Boolean,
+    default: true,
   },
   price: {
     type: Number,
