@@ -24,21 +24,25 @@ const insert = async (req: any, res: any) => {
     throw new BadRequestError('customer', 'not authenticated');
   }
 
-  const bundledOrders: any[] = [];
+  let bundledOrders: any[] = [];
 
   orders.forEach((order: any) => {
-    if (!bundledOrders[order.orderId]) bundledOrders[order.orderId] = []
+    if (!bundledOrders[order.orderId]) bundledOrders[order.orderId] = [];
     bundledOrders[order.orderId].push({
       uen: order.uen,
       menuId: order.menuId,
       customerId: order.customerId,
       quantity: order.quantity,
       status: order.status,
+      orderId: order.orderId,
     });
+    bundledOrders[order.orderId].orderId = order.orderId;
     bundledOrders[order.orderId].customerId = order.customerId;
     bundledOrders[order.orderId].quantity = order.quantity;
     bundledOrders[order.orderId].status = order.status;
   });
+
+  bundledOrders = bundledOrders.filter((order) => order !== null);
 
   return res.status(200).json({
     bundledOrders,
